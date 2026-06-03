@@ -6,7 +6,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/spf13/cobra"
-	
+
 	// Corrected to match your local go.mod initialization
 	"devinit/internal/config"
 	"devinit/internal/scaffold"
@@ -41,6 +41,7 @@ func runInit(cmd *cobra.Command, args []string) error {
 	if err != nil {
 		return fmt.Errorf("configuration failed: %w", err)
 	}
+	//fmt.Printf("DEBUG: Language is: '%s'\n", cfg.Language)
 
 	// Step 2: run all scaffolding steps
 	if err := scaffold.Run(cfg); err != nil {

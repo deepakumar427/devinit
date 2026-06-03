@@ -33,7 +33,7 @@ func (gh *GitHubStep) Run(cfg *config.ProjectConfig) error {
 
 	// 4. Create the remote repo and push
 	repoName := fmt.Sprintf("%s/%s", cfg.GitHubUser, cfg.ProjectName)
-	
+
 	ghCmd := exec.Command("gh", "repo", "create", repoName,
 		"--public",
 		"--source", ".", // We use "." because we set the Dir below
