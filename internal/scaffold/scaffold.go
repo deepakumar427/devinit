@@ -51,5 +51,9 @@ func Run(cfg *config.ProjectConfig) error {
 		color.Green("  ✓ %s", step.Name())
 	}
 
+	
+
+    
+
 	return nil
 }
