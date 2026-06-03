@@ -1,0 +1,9 @@
+## System Architecture
+
+- **Language**: {{.Language}}
+{{if .CreateDocker}}
+- **Containerization**: Docker configuration included
+{{end}}
+{{if .CreateCI}}
+- **CI/CD**: GitHub Actions pipeline configured
+{{end}}

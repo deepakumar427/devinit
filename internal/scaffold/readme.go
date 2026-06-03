@@ -1,15 +1,18 @@
-// internal/scaffold/readme.go
 package scaffold
 
 import (
 	"bytes"
 	"fmt"
+	"embed"
 	"os"
 	"path/filepath"
 	"text/template"
 
 	"devinit/internal/config"
 )
+
+//go:embed templates/readme.tmpl
+var readmeTmpl string
 
 type ReadmeStep struct{}
 
@@ -57,7 +60,6 @@ cd {{.ProjectName}}
 {{- end}}
 `
 
-	tmpl := template.Must(template.New("readme").Parse(tmplStr))
 	var buf bytes.Buffer
 	if err := tmpl.Execute(&buf, cfg); err != nil {
 		return err

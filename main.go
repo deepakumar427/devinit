@@ -4,5 +4,5 @@ package main
 import "devinit/cmd"
 
 func main() {
-    cmd.Execute()
+	cmd.Execute()
 }
