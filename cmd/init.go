@@ -34,7 +34,7 @@ func init() {
 func runInit(cmd *cobra.Command, args []string) error {
 	projectName := args[0]
 
-	color.Cyan("\n🚀 devinit — setting up %s\n\n", projectName)
+	color.Cyan("\n[devinit] Initializing project: %s\n\n", projectName)
 
 	// Step 1: collect configuration (via prompts or flags)
 	cfg, err := config.Collect(cmd, projectName)

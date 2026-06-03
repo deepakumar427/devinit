@@ -41,12 +41,12 @@ func Run(cfg *config.ProjectConfig) error {
     }
 
     for _, step := range steps {
-        color.Blue("  → %s...", step.Name())
+        color.Cyan("  [WAIT] %s...", step.Name())
         if err := step.Run(cfg); err != nil {
-            color.Red("  ✗ %s failed: %v", step.Name(), err)
+            color.Red("  [FAIL] %s failed: %v", step.Name(), err)
             return err
         }
-        color.Green("  ✓ %s", step.Name())
+        color.Green("  [OK]   %s", step.Name())
     }
 
     return nil
