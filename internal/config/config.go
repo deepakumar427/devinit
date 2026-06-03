@@ -16,6 +16,7 @@ type ProjectConfig struct {
 	CreateCI         bool
 	GitHubUser       string
 	GenerateAIReadme bool
+	CreateK8s        bool
 }
 
 // Collect builds a ProjectConfig by reading flags first,
@@ -28,6 +29,7 @@ func Collect(cmd *cobra.Command, name string) (*ProjectConfig, error) {
 	cfg.CreateDocker, _ = cmd.Flags().GetBool("docker")
 	cfg.CreateCI, _ = cmd.Flags().GetBool("ci")
 	cfg.CreateGitHub, _ = cmd.Flags().GetBool("github")
+	cfg.CreateK8s, _ = cmd.Flags().GetBool("k8s")
 
 	// For anything missing, prompt interactively
 	if cfg.Language == "" {
@@ -49,6 +51,7 @@ func Collect(cmd *cobra.Command, name string) (*ProjectConfig, error) {
 			"GitHub repo",
 			"Dockerfile",
 			"GitHub Actions CI/CD",
+			"Kubernetes Manifests",
 		},
 	}
 	if err := survey.AskOne(featPrompt, &features); err != nil {
@@ -64,7 +67,9 @@ func Collect(cmd *cobra.Command, name string) (*ProjectConfig, error) {
 			cfg.CreateDocker = true
 		case "GitHub Actions CI/CD":
 			cfg.CreateCI = true
-		}
+		case "Kubernetes Manifests":
+            cfg.CreateK8s = true
+        }
 	}
 
 	// If GitHub is selected, we need the username

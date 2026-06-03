@@ -35,11 +35,15 @@ func Run(cfg *config.ProjectConfig) error {
 	if cfg.CreateCI {
 		steps = append(steps, &CICDStep{})
 	}
+    if cfg.CreateK8s {
+		steps = append(steps, &K8sStep{})
+	}
 
 	// 3. Commit and push to GitHub LAST
 	if cfg.CreateGitHub {
 		steps = append(steps, &GitHubStep{})
 	}
+
 
 	// Execute each step, stopping on first error
 	for _, step := range steps {

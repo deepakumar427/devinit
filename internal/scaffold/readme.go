@@ -23,7 +23,7 @@ func (r *ReadmeStep) Run(cfg *config.ProjectConfig) error {
 	// 1. Attempt AI Generation First (if requested)
 	if cfg.GenerateAIReadme {
 		// Updated to match your new professional logging format
-		fmt.Println("  [WAIT] 🤖 Generating intelligent README via Gemini...")
+		fmt.Println("  [WAIT] Generating intelligent README via Gemini...")
 		aiContent, err := GenerateAIReadme(cfg)
 
 		if err == nil {
@@ -33,7 +33,7 @@ func (r *ReadmeStep) Run(cfg *config.ProjectConfig) error {
 
 		// If AI fails (e.g., missing API key), don't crash.
 		// Print a warning and fall through to the standard template.
-		fmt.Printf("  [FAIL] ⚠️ AI generation failed: %v\n  [WAIT] Falling back to standard template...\n", err)
+		fmt.Printf("  [FAIL] AI generation failed: %v\n  [WAIT] Falling back to standard template...\n", err)
 	}
 
 	// 2. Standard Template Fallback

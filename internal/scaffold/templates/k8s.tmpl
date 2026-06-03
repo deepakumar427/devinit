@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.ProjectName}}
+  labels:
+    app: {{.ProjectName}}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{.ProjectName}}
+  template:
+    metadata:
+      labels:
+        app: {{.ProjectName}}
+    spec:
+      containers:
+      - name: {{.ProjectName}}
+        image: {{.GitHubUser}}/{{.ProjectName}}:latest
+        ports:
+        - containerPort: {{- if eq .Language "node"}} 3000 {{- else if eq .Language "python"}} 8000 {{- else}} 8080 {{- end}}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.ProjectName}}-svc
+spec:
+  selector:
+    app: {{.ProjectName}}
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: {{- if eq .Language "node"}} 3000 {{- else if eq .Language "python"}} 8000 {{- else}} 8080 {{- end}}
+  type: ClusterIP
