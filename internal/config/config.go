@@ -9,12 +9,13 @@ import (
 // ProjectConfig holds every decision the user makes.
 // This struct flows through the entire scaffolding pipeline.
 type ProjectConfig struct {
-	ProjectName  string
-	Language     string // "go", "node", "python"
-	CreateGitHub bool
-	CreateDocker bool
-	CreateCI     bool
-	GitHubUser   string
+	ProjectName      string
+	Language         string // "go", "node", "python"
+	CreateGitHub     bool
+	CreateDocker     bool
+	CreateCI         bool
+	GitHubUser       string
+	GenerateAIReadme bool
 }
 
 // Collect builds a ProjectConfig by reading flags first,
@@ -73,6 +74,17 @@ func Collect(cmd *cobra.Command, name string) (*ProjectConfig, error) {
 			survey.WithValidator(survey.Required)); err != nil {
 			return nil, err
 		}
+	}
+
+	// ---------------------------------------------------------
+	// NEW: Ask the user if they want an AI-generated README
+	// ---------------------------------------------------------
+	aiPrompt := &survey.Confirm{
+		Message: "Do you want to generate an AI-optimized README using Gemini?",
+		Default: true,
+	}
+	if err := survey.AskOne(aiPrompt, &cfg.GenerateAIReadme); err != nil {
+		return nil, err
 	}
 
 	return cfg, nil
